@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Письмо Дедушке Морозу</title>
   <style>
-    /* ===== НОЧНОЕ СКАЗОЧНОЕ НЕБО ===== */
+    /* ===== СКАЗОЧНАЯ НОЧЬ С ЕЛКОЙ И САНКАМИ ===== */
     body {
       margin: 0;
       padding: 0;
@@ -14,9 +14,7 @@
       justify-content: center;
       align-items: center;
       background:
-        radial-gradient(circle at 20% 0%, #6aa9ff 0, transparent 55%),
-        radial-gradient(circle at 80% 0%, #e28fff 0, transparent 55%),
-        linear-gradient(to bottom, #050826 0, #02010c 60%, #010008 100%);
+        linear-gradient(to bottom, #031027 0%, #041b3f 45%, #041021 100%);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #fff;
       overflow: hidden;
@@ -30,19 +28,19 @@
       }
     }
 
-    /* мягкое сияние по краям */
+    /* мягкое сияние */
     body::before {
       content: "";
       position: fixed;
       inset: -40px;
       background:
-        radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.15) 0, transparent 55%),
-        radial-gradient(circle at 90% 0%, rgba(255, 255, 200, 0.18) 0, transparent 55%),
-        radial-gradient(circle at 50% 100%, rgba(120, 190, 255, 0.18) 0, transparent 55%);
+        radial-gradient(circle at 15% 0%, rgba(255, 255, 200, 0.22) 0, transparent 55%),
+        radial-gradient(circle at 85% 0%, rgba(200, 230, 255, 0.26) 0, transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(140, 210, 255, 0.22) 0, transparent 60%);
       mix-blend-mode: screen;
-      opacity: 0.9;
       pointer-events: none;
       z-index: 0;
+      opacity: 0.9;
     }
 
     .container {
@@ -50,7 +48,7 @@
       width: 340px;
       max-width: 90vw;
       text-align: center;
-      z-index: 2;
+      z-index: 3;
     }
 
     .hint {
@@ -74,7 +72,40 @@
       transform: translateY(0);
     }
 
-    /* ===== КОНВЕРТ С ЛЕГКИМ "ПУЛЬСОМ" ===== */
+    /* ===== НОВОГОДНЯЯ СЦЕНА ВНИЗУ (СНЕГ + ЕЛКА + САНКИ + ОЛЕНЬ) ===== */
+    .scene {
+      position: fixed;
+      inset: auto 0 0 0;
+      height: 140px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .scene-hill {
+      position: absolute;
+      inset: 40px -20% 0 -20%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.9) 0, transparent 45%),
+        radial-gradient(circle at 90% 0%, rgba(255, 255, 255, 0.7) 0, transparent 50%),
+        radial-gradient(circle at 50% -40px, #ffffff 0, #e3f2ff 55%, transparent 60%);
+    }
+
+    .scene-decor {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 26px 18px;
+      font-size: 1.6rem;
+      text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .scene-decor span {
+      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+    }
+
+    /* ===== КОНВЕРТ С ПУЛЬСОМ ===== */
     .envelope {
       position: relative;
       width: 100%;
@@ -121,7 +152,7 @@
       border-bottom: 2px solid rgba(180, 130, 70, 0.6);
     }
 
-    /* круглая печать + инициалы */
+    /* круглая печать + инициалы (здесь можно менять букву) */
     .envelope-front::before {
       content: "";
       position: absolute;
@@ -137,8 +168,7 @@
     }
 
     .envelope-front::after {
-      content: "A";
-      /* здесь можно поменять букву! */
+      content: "A"; /* здесь можешь поставить свои инициалы */
       position: absolute;
       top: -6px;
       left: 50%;
@@ -187,7 +217,7 @@
       transform-origin: center center;
       opacity: 0;
       pointer-events: none;
-      z-index: 3;
+      z-index: 5;
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
       border-radius: 18px;
       background:
@@ -289,7 +319,6 @@
       font-style: italic;
     }
 
-    /* декоративные круги */
     .letter-inner::before,
     .letter-inner::after {
       content: "";
@@ -317,7 +346,7 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 1;
+      z-index: 2;
       overflow: hidden;
     }
 
@@ -325,11 +354,11 @@
       position: absolute;
       top: -10%;
       font-size: 12px;
-      opacity: 0.85;
+      opacity: 0.9;
       animation-name: fall;
       animation-timing-function: linear;
       animation-iteration-count: infinite;
-      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.85));
+      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9));
     }
 
     @keyframes fall {
@@ -340,26 +369,47 @@
         transform: translate3d(0, 110vh, 0);
       }
     }
+
+    /* маленькая подпись */
+    .signature-footer {
+      position: fixed;
+      bottom: 6px;
+      right: 10px;
+      font-size: 0.7rem;
+      opacity: 0.75;
+      color: #f0f4ff;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+      z-index: 6;
+    }
   </style>
 </head>
 <body>
   <!-- Снег -->
   <div class="snow" id="snow"></div>
 
-  <!-- Конверт и подсказки -->
+  <!-- Новогодняя сцена внизу -->
+  <div class="scene">
+    <div class="scene-hill"></div>
+    <div class="scene-decor">
+      <span>🎄✨</span>
+      <span>🦌🛷🎅</span>
+    </div>
+  </div>
+
+  <!-- Основной блок -->
   <div class="container">
     <div class="hint" id="hint">
       Нажми на конверт, чтобы открыть письмо Дедушке Морозу 🎄
     </div>
 
-   <div
-  class="envelope"
-  id="envelope"
-  aria-label="Письмо Дедушке Морозу"
-  role="button"
-  tabindex="0"
-  onclick="openEnvelope()"
->
+    <div
+      class="envelope"
+      id="envelope"
+      aria-label="Письмо Дедушке Морозу"
+      role="button"
+      tabindex="0"
+      onclick="openEnvelope()"
+    >
       <div class="envelope-inner">
         <div class="envelope-back"></div>
         <div class="envelope-flap"></div>
@@ -408,7 +458,7 @@
           </li>
           <li>
             👉
-            <a href="https://www.otto.de/p/swarovski-y-kette-schmuck-geschenk-idyllia-y-anhaenger-blume-mit-swarovski-kristall-C1965726711/#ech=29420491" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.otto.de/p/swarovski-y-kette-schmuck-geschenk-idyllia-y-anhaenger-blume-mit-swarovski-kristалл-C1965726711/#ech=29420491" target="_blank" rel="noopener noreferrer">
               Swarovski Idyllia – OTTO
             </a>
           </li>
@@ -443,7 +493,7 @@
           </li>
           <li>
             👉
-            <a href="https://www.blue-tomato.com/de-DE/product/SP+Bindings-Base+2026+Snowboard+Bindung-756814/?+%24ja=tsid%3A46407&amp;em+src=kw&amp;em+cmp=Google%2FDE%2FPLA-MAR-Snow%2F305503848&amp;ex+s=google&amp;ex+m=paid&amp;ex+c=709945572&amp;ex+t=pla-2474675027714&amp;ex+co=427698012471&amp;ex+a=105090018608&amp;ex+gid=Cj0KCQiAi9rJBhCYARIsALyPDtupYsktlFvNHm0l+RzPpphYoTko47Q4kh8o5qRX2qTw6DoSarJ38YgaAvmwEALw+wcB&amp;gad+source=1&amp;gad+campaignid=709945572&amp;gbraid=0AAAAADq0NrB36VGlTAY+5qZLcCvb9CM5R&amp;gclid=Cj0KCQiAi9rJBhCYARIsALyPDtupYsktlFvNHm0l+RzPpphYoTko47Q4kh8o5qRX2qTw6DoSarJ38YgaAvmwEALw+wcB&amp;varid=305503847" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.blue-tomato.com/de-DE/product/SP+Bindings-Base+2026+Snowboard+Bindung-756814/" target="_blank" rel="noopener noreferrer">
               SP Bindings Base 2026 – Blue Tomato
             </a>
           </li>
@@ -483,7 +533,8 @@
         </p>
 
         <p>
-          Так как хорошо воспитанная, но с фантазией адресатка этого письма давно дружит с почтой, лишних подозрений это не вызовет.
+          Так как хорошо воспитанная, но с фантазией адресатка этого письма давно дружит с почтой,
+          лишних подозрений это не вызовет.
         </p>
 
         <p>
@@ -501,14 +552,57 @@
     </div>
   </div>
 
+  <!-- маленькая персональная подпись сайта -->
+  <div class="signature-footer">
+    Created with winter magic by Angelina ✨
+  </div>
+
   <script>
-    // Открытие конверта и показ письма
     const envelope = document.getElementById("envelope");
     const hint = document.getElementById("hint");
     const letterOverlay = document.getElementById("letterOverlay");
 
     function openEnvelope() {
+      if (!envelope || !letterOverlay) return;
       if (envelope.classList.contains("open")) return;
       envelope.classList.add("open");
       document.body.classList.add("show-letter");
       letterOverlay.setAttribute("aria-hidden", "false");
+      if (hint) hint.textContent = "";
+    }
+
+    // доступно и через onclick в HTML
+    window.openEnvelope = openEnvelope;
+
+    // на всякий случай ещё и через addEventListener
+    if (envelope) {
+      envelope.addEventListener("click", openEnvelope);
+    }
+
+    // клавиатура (можешь оставить, просто как бонус)
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openEnvelope();
+      }
+    });
+
+    // Снег
+    const snowContainer = document.getElementById("snow");
+    const FLAKES = 90;
+
+    if (snowContainer) {
+      for (let i = 0; i < FLAKES; i++) {
+        const flake = document.createElement("div");
+        flake.className = "snowflake";
+        flake.textContent = "❄";
+        flake.style.left = Math.random() * 100 + "vw";
+        flake.style.animationDuration = 9 + Math.random() * 8 + "s";
+        flake.style.animationDelay = -Math.random() * 12 + "s";
+        flake.style.fontSize = 8 + Math.random() * 14 + "px";
+        snowContainer.appendChild(flake);
+      }
+    }
+  </script>
+</body>
+</html>
