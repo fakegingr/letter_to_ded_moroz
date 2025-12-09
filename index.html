@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Письмо Дедушке Морозу</title>
   <style>
-    /* ===== БАЗА ===== */
+    /* ===== НОЧНОЕ СКАЗОЧНОЕ НЕБО ===== */
     body {
       margin: 0;
       padding: 0;
@@ -14,19 +14,35 @@
       justify-content: center;
       align-items: center;
       background:
-        radial-gradient(circle at 20% 0%, #4a7fd1 0, transparent 55%),
-        radial-gradient(circle at 80% 0%, #c76ddc 0, transparent 55%),
-        radial-gradient(circle at 50% 100%, #1b2d5e 0, #050816 60%);
+        radial-gradient(circle at 20% 0%, #6aa9ff 0, transparent 55%),
+        radial-gradient(circle at 80% 0%, #e28fff 0, transparent 55%),
+        linear-gradient(to bottom, #050826 0, #02010c 60%, #010008 100%);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #fff;
       overflow: hidden;
-      font-size: 18px; /* крупнее базовый шрифт */
+      font-size: 18px;
+      position: relative;
     }
 
     @media (max-width: 400px) {
       body {
         font-size: 16px;
       }
+    }
+
+    /* мягкое сияние по краям */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -40px;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.15) 0, transparent 55%),
+        radial-gradient(circle at 90% 0%, rgba(255, 255, 200, 0.18) 0, transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(120, 190, 255, 0.18) 0, transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .container {
@@ -40,7 +56,7 @@
     .hint {
       margin-bottom: 14px;
       font-size: 0.95rem;
-      opacity: 0.95;
+      opacity: 0.96;
       text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
     }
 
@@ -58,13 +74,23 @@
       transform: translateY(0);
     }
 
-    /* ===== КОНВЕРТ ===== */
+    /* ===== КОНВЕРТ С ЛЕГКИМ "ПУЛЬСОМ" ===== */
     .envelope {
       position: relative;
       width: 100%;
       padding-top: 70%;
       cursor: pointer;
       perspective: 1200px;
+      animation: envelope-glow 2.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes envelope-glow {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        transform: translateY(-4px) scale(1.02);
+      }
     }
 
     .envelope-inner {
@@ -72,38 +98,55 @@
       inset: 0;
       border-radius: 14px;
       overflow: visible;
+      filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.7));
     }
 
     .envelope-back {
       position: absolute;
       inset: 0;
-      background: linear-gradient(145deg, #b32033, #7d1624);
+      background: linear-gradient(145deg, #b32033, #6e0f1f);
       border-radius: 14px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+      border: 2px solid rgba(255, 215, 160, 0.7);
     }
 
     .envelope-front {
       position: absolute;
       inset: 38% 0 0 0;
-      background: linear-gradient(145deg, #f2ebe0, #dcc9aa);
+      background: linear-gradient(145deg, #f5ebd6, #dac3a0);
       border-radius: 0 0 14px 14px;
       box-shadow: 0 -5px 0 rgba(255, 255, 255, 0.6);
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      border-left: 2px solid rgba(255, 215, 160, 0.55);
+      border-right: 2px solid rgba(255, 215, 160, 0.55);
+      border-bottom: 2px solid rgba(180, 130, 70, 0.6);
     }
 
+    /* круглая печать + инициалы */
     .envelope-front::before {
-      /* маленькая "печать" по центру */
       content: "";
       position: absolute;
-      top: -16px;
+      top: -18px;
       left: 50%;
       transform: translateX(-50%);
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #ffdfc2 0, #b83232 45%, #7b1414 100%);
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+      background: radial-gradient(circle at 30% 30%, #ffe9c8 0, #c43a3a 45%, #7b1414 100%);
+      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.45);
       border: 2px solid rgba(120, 0, 0, 0.7);
+    }
+
+    .envelope-front::after {
+      content: "A";
+      /* здесь можно поменять букву! */
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1rem;
+      color: #fff4e0;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
     }
 
     .envelope-flap {
@@ -122,17 +165,18 @@
       width: 150%;
       height: 78%;
       transform: translateX(-50%);
-      background: linear-gradient(145deg, #f5eee3, #d3c0a0);
+      background: linear-gradient(145deg, #f7eee1, #d3b792);
       clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
       box-shadow: 0 7px 14px rgba(0, 0, 0, 0.45);
       border-radius: 16px 16px 0 0;
+      border: 2px solid rgba(255, 215, 160, 0.7);
     }
 
     .envelope.open .envelope-flap {
       transform: rotateX(180deg) translateY(-4px);
     }
 
-    /* ===== БОЛЬШОЕ ПИСЬМО (НА ВЕСЬ ЭКРАН) ===== */
+    /* ===== БОЛЬШОЕ СТАРИННОЕ ПИСЬМО ===== */
     .letter-overlay {
       position: fixed;
       left: 50%;
@@ -144,7 +188,7 @@
       opacity: 0;
       pointer-events: none;
       z-index: 3;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.75);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
       border-radius: 18px;
       background:
         radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.65) 0, transparent 40%),
@@ -166,12 +210,12 @@
         box-shadow: 0 10px 18px rgba(0, 0, 0, 0.65);
       }
       55% {
-        transform: translate(-50%, -52%) scale(1.05) rotate(3deg);
-        box-shadow: 0 22px 48px rgba(0, 0, 0, 0.85);
+        transform: translate(-50%, -52%) scale(1.07) rotate(3deg);
+        box-shadow: 0 22px 48px rgba(0, 0, 0, 0.9);
       }
       100% {
         transform: translate(-50%, -50%) scale(1) rotate(0deg);
-        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.78);
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.8);
       }
     }
 
@@ -181,7 +225,6 @@
       overflow-y: auto;
       padding: 18px 20px 20px;
       box-sizing: border-box;
-      /* лёгкие "старые" полосы */
       background-image:
         repeating-linear-gradient(
           to bottom,
@@ -193,13 +236,14 @@
     }
 
     .letter-inner {
-      background: rgba(255, 252, 244, 0.93);
+      position: relative;
+      background: rgba(255, 252, 244, 0.96);
       border-radius: 14px;
       padding: 16px 16px 18px;
       box-sizing: border-box;
       border: 1px solid rgba(140, 104, 54, 0.6);
       box-shadow: inset 0 0 18px rgba(120, 80, 35, 0.35);
-      font-size: 1rem; /* крупный текст письма */
+      font-size: 1rem;
     }
 
     .letter-inner h1 {
@@ -245,7 +289,7 @@
       font-style: italic;
     }
 
-    /* маленькие уголки-декор */
+    /* декоративные круги */
     .letter-inner::before,
     .letter-inner::after {
       content: "";
@@ -254,7 +298,7 @@
       height: 60px;
       border: 2px solid rgba(150, 105, 55, 0.6);
       border-radius: 50%;
-      opacity: 0.32;
+      opacity: 0.27;
       pointer-events: none;
     }
 
@@ -305,7 +349,7 @@
   <!-- Конверт и подсказки -->
   <div class="container">
     <div class="hint" id="hint">
-      Нажми на конверт чтобы открыть письмо Дедушке Морозу 🎄
+      Нажми на конверт, чтобы открыть письмо Дедушке Морозу 🎄
     </div>
 
     <div class="envelope" id="envelope" aria-label="Письмо Дедушке Морозу" role="button" tabindex="0">
@@ -461,32 +505,3 @@
       envelope.classList.add("open");
       document.body.classList.add("show-letter");
       letterOverlay.setAttribute("aria-hidden", "false");
-      if (hint) hint.textContent = "";
-    }
-
-    envelope.addEventListener("click", openEnvelope);
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        openEnvelope();
-      }
-    });
-
-    // Снег
-    const snowContainer = document.getElementById("snow");
-    const FLAKES = 70;
-
-    for (let i = 0; i < FLAKES; i++) {
-      const flake = document.createElement("div");
-      flake.className = "snowflake";
-      flake.textContent = "❄";
-      flake.style.left = Math.random() * 100 + "vw";
-      flake.style.animationDuration = 9 + Math.random() * 7 + "s";
-      flake.style.animationDelay = -Math.random() * 10 + "s";
-      flake.style.fontSize = 10 + Math.random() * 10 + "px";
-      snowContainer.appendChild(flake);
-    }
-  </script>
-</body>
-</html>
