@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Письмо Дедушке Морозу</title>
   <style>
-    /* ===== СКАЗОЧНАЯ НОЧЬ ===== */
+    /* ===== СКАЗОЧНАЯ НОЧЬ (МОНОЛИТНОЕ НЕБО) ===== */
     body {
       margin: 0;
       padding: 0;
@@ -13,8 +13,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background:
-        linear-gradient(to bottom, #030821 0%, #041538 45%, #020814 100%);
+      background: linear-gradient(to bottom, #030821 0%, #041538 45%, #020814 100%);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #fff;
       overflow: hidden;
@@ -71,26 +70,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* ===== СНЕЖНЫЙ ХОЛМ ВНИЗУ ===== */
-    .scene {
-      position: fixed;
-      inset: auto 0 0 0;
-      height: 140px;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .scene-hill {
-      position: absolute;
-      inset: 40px -20% 0 -20%;
-      background:
-        radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.9) 0, transparent 45%),
-        radial-gradient(circle at 90% 0%, rgba(255, 255, 255, 0.7) 0, transparent 50%),
-        radial-gradient(circle at 50% -40px, #ffffff 0, #e3f2ff 55%, transparent 60%);
-    }
-
-    /* можно позже добавить ёлки/сани как векторные фигуры, сейчас просто снег */
 
     /* ===== ЗВЁЗДНОЕ НЕБО ===== */
     .starfield {
@@ -391,6 +370,144 @@
       }
     }
 
+    /* ===== ДЕД МОРОЗ НА САНЯХ (СИЛУЭТ) ===== */
+    .santa {
+      position: fixed;
+      top: 18vh;
+      left: -25vw;
+      width: 120px;
+      height: 40px;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .santa.fly {
+      animation: santa-fly 7s linear forwards;
+    }
+
+    @keyframes santa-fly {
+      0% {
+        transform: translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(150vw);
+        opacity: 0;
+      }
+    }
+
+    /* силуэт саней + оленя */
+    .santa-body,
+    .santa-deer {
+      position: absolute;
+      bottom: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+      border-radius: 999px;
+    }
+
+    .santa-body {
+      left: 10px;
+      width: 50px;
+      height: 14px;
+    }
+
+    .santa-body::before {
+      /* "мешок" / Дед Мороз */
+      content: "";
+      position: absolute;
+      left: 26px;
+      bottom: 10px;
+      width: 22px;
+      height: 18px;
+      border-radius: 50% 50% 40% 40%;
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .santa-body::after {
+      /* спинка саней */
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 36px;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .santa-deer {
+      right: 6px;
+      width: 34px;
+      height: 12px;
+    }
+
+    .santa-deer::before {
+      /* голова оленя */
+      content: "";
+      position: absolute;
+      right: -6px;
+      top: -6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .santa-deer::after {
+      /* "рога" условные */
+      content: "";
+      position: absolute;
+      right: -4px;
+      top: -10px;
+      width: 14px;
+      height: 6px;
+      border-radius: 999px;
+      border-top: 2px solid rgba(255, 255, 255, 0.9);
+    }
+
+    /* ===== ФЕЙЕРВЕРКИ ===== */
+    .fireworks {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .firework {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff 0, rgba(255, 200, 120, 0.9) 40%, transparent 70%);
+      box-shadow:
+        0 0 10px rgba(255, 255, 255, 0.9),
+        0 0 18px rgba(255, 200, 120, 0.9);
+      animation: boom 2s ease-out forwards;
+    }
+
+    @keyframes boom {
+      0% {
+        transform: scale(0.2);
+        opacity: 1;
+      }
+      60% {
+        transform: scale(1.4);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.7);
+        opacity: 0;
+      }
+    }
+
     /* маленькая русская подпись создателя */
     .signature-footer {
       position: fixed;
@@ -411,10 +528,14 @@
   <!-- Снег -->
   <div class="snow" id="snow"></div>
 
-  <!-- Снежный холм -->
-  <div class="scene">
-    <div class="scene-hill"></div>
+  <!-- Дед Мороз на санях -->
+  <div class="santa" id="santa" aria-hidden="true">
+    <div class="santa-body"></div>
+    <div class="santa-deer"></div>
   </div>
+
+  <!-- Фейерверки -->
+  <div class="fireworks" id="fireworks" aria-hidden="true"></div>
 
   <!-- Основной блок -->
   <div class="container">
@@ -586,6 +707,8 @@
     const envelope = document.getElementById("envelope");
     const hint = document.getElementById("hint");
     const letterOverlay = document.getElementById("letterOverlay");
+    const santa = document.getElementById("santa");
+    const fireworksContainer = document.getElementById("fireworks");
 
     function openEnvelope() {
       if (!envelope || !letterOverlay) return;
@@ -596,13 +719,19 @@
       if (hint) hint.textContent = "";
     }
 
-    // делаем функцию доступной глобально и через onclick
+    // глобально и через onclick
     window.openEnvelope = openEnvelope;
 
-    // и на всякий случай ещё раз через addEventListener
     if (envelope) {
       envelope.addEventListener("click", openEnvelope);
     }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openEnvelope();
+      }
+    });
 
     // Снег
     const snowContainer = document.getElementById("snow");
@@ -630,13 +759,40 @@
         const star = document.createElement("div");
         star.className = "star";
         star.style.left = Math.random() * 100 + "vw";
-        star.style.top = Math.random() * 70 + "vh"; // только верхняя часть экрана
+        star.style.top = Math.random() * 70 + "vh"; // верхняя часть экрана
         const duration = 3 + Math.random() * 4;
         star.style.animationDuration = duration + "s";
         star.style.animationDelay = -Math.random() * duration + "s";
         starfield.appendChild(star);
       }
     }
+
+    // Дед Мороз на санях — пролетает раз в ~12 секунд
+    function startSantaLoop() {
+      if (!santa) return;
+      setInterval(() => {
+        santa.classList.remove("fly");
+        // перезапуск анимации
+        void santa.offsetWidth;
+        santa.classList.add("fly");
+      }, 12000);
+    }
+    startSantaLoop();
+
+    // Фейерверки — время от времени
+    function spawnFirework() {
+      if (!fireworksContainer) return;
+      const fw = document.createElement("div");
+      fw.className = "firework";
+      fw.style.left = Math.random() * 80 + 10 + "vw"; // не у краёв
+      fw.style.top = Math.random() * 40 + 5 + "vh";   // верхняя половина
+      fireworksContainer.appendChild(fw);
+      setTimeout(() => {
+        fw.remove();
+      }, 2200);
+    }
+
+    setInterval(spawnFirework, 9000);
   </script>
 </body>
 </html>
