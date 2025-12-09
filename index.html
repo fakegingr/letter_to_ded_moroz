@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Письмо Дедушке Морозу</title>
   <style>
-    /* ===== СКАЗОЧНАЯ НОЧЬ С ЕЛКОЙ И САНКАМИ ===== */
+    /* ===== СКАЗОЧНАЯ НОЧЬ ===== */
     body {
       margin: 0;
       padding: 0;
@@ -14,7 +14,7 @@
       justify-content: center;
       align-items: center;
       background:
-        linear-gradient(to bottom, #031027 0%, #041b3f 45%, #041021 100%);
+        linear-gradient(to bottom, #030821 0%, #041538 45%, #020814 100%);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #fff;
       overflow: hidden;
@@ -28,14 +28,14 @@
       }
     }
 
-    /* мягкое сияние */
+    /* мягкое сияние по краям */
     body::before {
       content: "";
       position: fixed;
       inset: -40px;
       background:
-        radial-gradient(circle at 15% 0%, rgba(255, 255, 200, 0.22) 0, transparent 55%),
-        radial-gradient(circle at 85% 0%, rgba(200, 230, 255, 0.26) 0, transparent 55%),
+        radial-gradient(circle at 15% 0%, rgba(255, 255, 220, 0.19) 0, transparent 55%),
+        radial-gradient(circle at 85% 0%, rgba(200, 230, 255, 0.23) 0, transparent 55%),
         radial-gradient(circle at 50% 100%, rgba(140, 210, 255, 0.22) 0, transparent 60%);
       mix-blend-mode: screen;
       pointer-events: none;
@@ -72,7 +72,7 @@
       transform: translateY(0);
     }
 
-    /* ===== НОВОГОДНЯЯ СЦЕНА ВНИЗУ (СНЕГ + ЕЛКА + САНКИ + ОЛЕНЬ) ===== */
+    /* ===== СНЕЖНЫЙ ХОЛМ ВНИЗУ ===== */
     .scene {
       position: fixed;
       inset: auto 0 0 0;
@@ -90,19 +90,39 @@
         radial-gradient(circle at 50% -40px, #ffffff 0, #e3f2ff 55%, transparent 60%);
     }
 
-    .scene-decor {
-      position: absolute;
+    /* можно позже добавить ёлки/сани как векторные фигуры, сейчас просто снег */
+
+    /* ===== ЗВЁЗДНОЕ НЕБО ===== */
+    .starfield {
+      position: fixed;
       inset: 0;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      padding: 0 26px 18px;
-      font-size: 1.6rem;
-      text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .scene-decor span {
-      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+      opacity: 0.5;
+      animation-name: twinkle;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+      animation-timing-function: ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1.6);
+      }
     }
 
     /* ===== КОНВЕРТ С ПУЛЬСОМ ===== */
@@ -152,7 +172,7 @@
       border-bottom: 2px solid rgba(180, 130, 70, 0.6);
     }
 
-    /* круглая печать + инициалы (здесь можно менять букву) */
+    /* ВОСКОВАЯ ПЕЧАТЬ + ИНИЦИАЛЫ "АП" (КИРИЛЛИЦА) */
     .envelope-front::before {
       content: "";
       position: absolute;
@@ -168,13 +188,14 @@
     }
 
     .envelope-front::after {
-      content: "A"; /* здесь можешь поставить свои инициалы */
+      content: "АП"; /* Анжелина Пригожин, кириллицей */
       position: absolute;
       top: -6px;
       left: 50%;
       transform: translateX(-50%);
       font-family: "Georgia", "Times New Roman", serif;
-      font-size: 1rem;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
       color: #fff4e0;
       text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
     }
@@ -370,13 +391,13 @@
       }
     }
 
-    /* маленькая подпись */
+    /* маленькая русская подпись создателя */
     .signature-footer {
       position: fixed;
       bottom: 6px;
       right: 10px;
       font-size: 0.7rem;
-      opacity: 0.75;
+      opacity: 0.8;
       color: #f0f4ff;
       text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
       z-index: 6;
@@ -384,16 +405,15 @@
   </style>
 </head>
 <body>
+  <!-- Звёзды -->
+  <div class="starfield" id="starfield"></div>
+
   <!-- Снег -->
   <div class="snow" id="snow"></div>
 
-  <!-- Новогодняя сцена внизу -->
+  <!-- Снежный холм -->
   <div class="scene">
     <div class="scene-hill"></div>
-    <div class="scene-decor">
-      <span>🎄✨</span>
-      <span>🦌🛷🎅</span>
-    </div>
   </div>
 
   <!-- Основной блок -->
@@ -458,7 +478,7 @@
           </li>
           <li>
             👉
-            <a href="https://www.otto.de/p/swarovski-y-kette-schmuck-geschenk-idyllia-y-anhaenger-blume-mit-swarovski-kristалл-C1965726711/#ech=29420491" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.otto.de/p/swarovski-y-kette-schmuck-geschenk-idyllia-y-anhaenger-blume-mit-swarovski-kristall-C1965726711/#ech=29420491" target="_blank" rel="noopener noreferrer">
               Swarovski Idyllia – OTTO
             </a>
           </li>
@@ -543,6 +563,11 @@
           и не задавать лишних вопросов 😉
         </p>
 
+        <p>
+          P.S. Это письмо Деду Морозу может выручить исключительно как посланник:
+          <strong>А.Д.</strong> — у него там, по его словам, «есть связи, он доставит».
+        </p>
+
         <p class="signature">
           С уважением, теплом<br />
           и лёгкой верой в новогодние чудеса,<br /><br />
@@ -552,9 +577,9 @@
     </div>
   </div>
 
-  <!-- маленькая персональная подпись сайта -->
+  <!-- маленькая русская подпись создателя -->
   <div class="signature-footer">
-    Created with winter magic by Angelina ✨
+    Создано с зимней магией Анжелиной ✨
   </div>
 
   <script>
@@ -571,21 +596,13 @@
       if (hint) hint.textContent = "";
     }
 
-    // доступно и через onclick в HTML
+    // делаем функцию доступной глобально и через onclick
     window.openEnvelope = openEnvelope;
 
-    // на всякий случай ещё и через addEventListener
+    // и на всякий случай ещё раз через addEventListener
     if (envelope) {
       envelope.addEventListener("click", openEnvelope);
     }
-
-    // клавиатура (можешь оставить, просто как бонус)
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        openEnvelope();
-      }
-    });
 
     // Снег
     const snowContainer = document.getElementById("snow");
@@ -601,6 +618,23 @@
         flake.style.animationDelay = -Math.random() * 12 + "s";
         flake.style.fontSize = 8 + Math.random() * 14 + "px";
         snowContainer.appendChild(flake);
+      }
+    }
+
+    // Звёзды
+    const starfield = document.getElementById("starfield");
+    const STARS = 70;
+
+    if (starfield) {
+      for (let i = 0; i < STARS; i++) {
+        const star = document.createElement("div");
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "vw";
+        star.style.top = Math.random() * 70 + "vh"; // только верхняя часть экрана
+        const duration = 3 + Math.random() * 4;
+        star.style.animationDuration = duration + "s";
+        star.style.animationDelay = -Math.random() * duration + "s";
+        starfield.appendChild(star);
       }
     }
   </script>
